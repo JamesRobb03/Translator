@@ -1,4 +1,8 @@
-
+import java.util.Scanner;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 /**
  * Lab 1
  * 
@@ -33,6 +37,49 @@ public class List
         
         head = newOne;
     }
+    
+public void openFile() {
+		
+		String filename = "english.txt";
+		String filename2 = "spanish.txt";
+		FileReader fileReader = null;
+		FileReader fileReader2 = null;
+        BufferedReader bufferedReader = null;
+        BufferedReader bufferedReader2 = null;
+        String nextLine;
+        String nextLine2;
+        String temp;
+		
+		try
+        {
+            fileReader = new FileReader(filename);
+            fileReader2 = new FileReader(filename2);
+
+            bufferedReader = new BufferedReader(fileReader);
+            bufferedReader2 = new BufferedReader(fileReader2);
+
+            nextLine = bufferedReader.readLine();
+            nextLine2 = bufferedReader2.readLine();
+
+            while (nextLine != null)
+            {
+            	temp = nextLine+":"+nextLine2;
+                System.out.println(temp);
+                nextLine = bufferedReader.readLine();
+                nextLine2 = bufferedReader2.readLine();
+            }
+            
+            bufferedReader.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Sorry, your file was not found.");
+        }
+        catch (IOException e)
+        {
+            System.out.println("Sorry, there has been a problem opening or reading from the file");
+        }
+	}
  
     /**
      * Print the list, starting at head
