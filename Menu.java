@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import jdk.nashorn.internal.runtime.ListAdapter;
+
 public class Menu {
 	/**
 	 * 
@@ -69,6 +71,8 @@ public class Menu {
 		testTree.showTree();
 		
 		translate();
+		
+		listA.openFile();
 	
 	}
 }
