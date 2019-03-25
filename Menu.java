@@ -69,7 +69,7 @@ public class Menu {
 		
 		
 	}
-	public int getID(String letter) {
+	public static int getID(String letter) {
 		int id = 0;
 		switch(letter) {
 			case "a":
@@ -160,7 +160,11 @@ public class Menu {
 		testTree.insert(3, "c",listC);
 		testTree.insert(1, "a",listA);
 		testTree.insert(2, "b",listB);
+		testTree.insert(4,"d", listD);
+		testTree.insert(5,"e", listE);
 		testTree.insert(9, "i",listI);
+		testTree.insert(7,"g", listG);
+		testTree.insert(8,"h", listH);
 		testTree.insert(11, "k",listK);
 		testTree.insert(10, "j",listJ);
 		testTree.insert(12, "l",listL);
@@ -172,11 +176,15 @@ public class Menu {
 		testTree.insert(21, "u",listU);
 		testTree.insert(22, "v",listV);
 		testTree.insert(17, "q",listQ);
+		testTree.insert(18,"r", listR);
+		testTree.insert(19,"s", listS);
 		testTree.insert(15, "o",listO);
 		testTree.insert(14, "n",listN);
 		testTree.insert(16, "p",listP);
 		
-		testTree.showTree();
+		//testTree.showTree();
+		testTree.openFile();
+		translate();
 	
 	}
 	

@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Tree {
 	 TreeNode root;
@@ -246,6 +250,51 @@ public class Tree {
 		  spanish = current.list.spanishFromNode(node);
 		  return spanish;
 	  }
+	  
+	  public void openFile() {
+			
+			String filename = "english.txt";
+			String filename2 = "spanish.txt";
+			FileReader fileReader = null;
+			FileReader fileReader2 = null;
+	        BufferedReader bufferedReader = null;
+	        BufferedReader bufferedReader2 = null;
+	        String nextLine;
+	        String nextLine2;
+	        int temp;
+			
+			try
+	        {
+	            fileReader = new FileReader(filename);
+	            fileReader2 = new FileReader(filename2);
+
+	            bufferedReader = new BufferedReader(fileReader);
+	            bufferedReader2 = new BufferedReader(fileReader2);
+
+	            nextLine = bufferedReader.readLine();
+	            nextLine2 = bufferedReader2.readLine();
+
+	            while (nextLine != null)
+	            {
+	            	temp = Menu.getID(nextLine.substring(0, 1));
+	            	TreeNode current = search(temp);
+	            	current.list.addToList(nextLine, nextLine2);
+	                nextLine = bufferedReader.readLine();
+	                nextLine2 = bufferedReader2.readLine();
+	            }
+	            
+	            bufferedReader.close();
+	        }
+	        catch (FileNotFoundException e)
+	        {
+	            System.out.println("Sorry, your file was not found.");
+	        }
+	        catch (IOException e)
+	        {
+	            System.out.println("Sorry, there has been a problem opening or reading from the file");
+	        }
+		}
+	 
 
 	  
 }
