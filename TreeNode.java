@@ -3,7 +3,7 @@
  */
 
 /**
- * @author James Robb
+ * @author Harry Finch, James Robb
  *
  */
 public class TreeNode {
@@ -30,6 +30,9 @@ public class TreeNode {
     	return data;
     }
     
-    
+    public void printNode() 
+    {
+    	list.printList();
+    }
     
 }
