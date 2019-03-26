@@ -1,9 +1,10 @@
+
 /**
  * 
  */
 
 /**
- * @author Harry Finch, James Robb
+ * @author ADMIN
  *
  */
 public class TreeNode {
@@ -30,9 +31,6 @@ public class TreeNode {
     	return data;
     }
     
-    public void printNode() 
-    {
-    	list.printList();
-    }
+    
     
 }
