@@ -198,6 +198,7 @@ public class Menu {
 		//adds words from file into linked lists
 		testTree.openFile();
 		//runs the translate option that allows users to translate a word
+
 		readFile();
 		translate();
 	
@@ -286,41 +287,43 @@ public class Menu {
                 nextLine = bufferedReader.readLine();
             }       
             bufferedReader.close();
-        }
-        catch (FileNotFoundException e)
-        {
-            System.out.println("File to be translated could not be found!");
-        }
-        catch (IOException e)
-        {
-            System.out.println("An error occured when opening and reading the file to be translated!");
-        }	
-	}
+            }
+            catch (FileNotFoundException e)
+            {
+                System.out.println("File to be translated could not be found!");
+            }
+            catch (IOException e)
+           {
+                System.out.println("An error occured when opening and reading the file to be translated!");
+           }	
+	    }
 	
-	public void writeToFile(int lineNumber, String text) {
-		text = text + System.lineSeparator();
-		if(lineNumber == 0) {
-			try {
-				PrintWriter writer = new PrintWriter("translation.txt", "UTF-8");
-				try {
-				    Files.write(Paths.get("translation.txt"), text.getBytes(), StandardOpenOption.APPEND);
-				}catch (IOException e) {
-				    System.out.println("Unable to add text to new translation text file!");
-				}
-			}
-			catch (Exception e){
-				System.out.println("File could not be created!");
-			}
-		}
-		else {
-			try {
-			    Files.write(Paths.get("translation.txt"), text.getBytes(), StandardOpenOption.APPEND);
+      public void writeToFile(int lineNumber, String text) {
+        text = text + System.lineSeparator();
+        if(lineNumber == 0) {
+          try {
+            PrintWriter writer = new PrintWriter("translation.txt", "UTF-8");
+            try {
+                Files.write(Paths.get("translation.txt"), text.getBytes(), StandardOpenOption.APPEND);
+            }catch (IOException e) {
+                System.out.println("Unable to add text to new translation text file!");
+            }
+          }
+          catch (Exception e){
+            System.out.println("File could not be created!");
+          }
+        }
+        else {
+          try {
+              Files.write(Paths.get("translation.txt"), text.getBytes(), StandardOpenOption.APPEND);
 
-			}catch (IOException e) {
-				System.out.println("Unable to add text to translation text file!");
-			}
-		}		
-	}
+          }catch (IOException e) {
+            System.out.println("Unable to add text to translation text file!");
+          }
+        }		
+      }
+	  translate();
+
 	
 	public static boolean isNumeric(String str)
 	{
