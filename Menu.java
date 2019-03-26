@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -22,8 +23,7 @@ public class Menu {
 		// TODO Auto-generated method stub
 		Menu test = new Menu();
 		test.init();
-		test.runTest();
-		
+		test.runTest("hello im 10");
 	}
 	
 	private void init(){
@@ -58,13 +58,14 @@ public class Menu {
 		s = new Scanner(System.in);
 	}
 	
-	public void translate() {
+	public void translate(String string) {
 		String input;
 		int id;
 		String[] transInput_li;
-		do {
-		System.out.println("Please enter what you would like to translate");
-		input = s.nextLine();
+		//do {
+		//System.out.println("Please enter what you would like to translate");
+		//input = s.nextLine();
+		input = string;
 		input = input.toLowerCase();
 		transInput_li = input.split(" ");
 		for(String transInput:transInput_li) {
@@ -77,7 +78,7 @@ public class Menu {
 		}
 		System.out.println("");
 		System.out.println("");
-		}while(input!="exit");
+		//}while(input!="exit");
 		
 		
 	}
@@ -165,7 +166,7 @@ public class Menu {
 		}
 		return id;
 	}
-	private void runTest() {
+	private void runTest(String string) {
 		
 		testTree.insert(13, "m",listM);
 		testTree.insert(6, "f",listF);
@@ -198,12 +199,9 @@ public class Menu {
 		//adds words from file into linked lists
 		testTree.openFile();
 		//runs the translate option that allows users to translate a word
-
-		readFile();
-		translate();
+		translate(string);
 	
 	}
-	
 	public void readFile() {
 		Scanner s1 = new Scanner(System.in);
 		FileReader fileReader = null;
@@ -235,7 +233,7 @@ public class Menu {
             	//Removing punctuation from words
             	//Removing non lower case letters
             	for(int e = 0; e <= (words.length - 1); e++) {           		
-            		words[e] = words[e].replaceAll("[^a-zA-Z]", "");
+            		words[e] = words[e].replaceAll("[^a-zA-Z0-9]", "");
             		words[e] = words[e].toLowerCase();
             	}
             	
@@ -322,7 +320,6 @@ public class Menu {
           }
         }		
       }
-	  translate();
 
 	
 	public static boolean isNumeric(String str)
@@ -333,7 +330,6 @@ public class Menu {
 	    }
 	    return true;
 	}
-	
 	
 
 }
