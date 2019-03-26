@@ -20,8 +20,7 @@ public class Menu {
 		 //TODO Auto-generated method stub
 		 Menu test = new Menu();
 		 test.init();
-		 test.runTest("hello world , i bet you all hate java right now");
-		 //Tree.printDictionary();
+		 test.runTest("hello world");
 	}
 	
 	public void init(){
@@ -53,7 +52,6 @@ public class Menu {
 		listY = new List();
 		listZ = new List();
 		
-		
 		s = new Scanner(System.in);
 	}
 	
@@ -79,29 +77,6 @@ public class Menu {
 		}
 		return output;
 	}
-	
-	public String translateSpan(String input) {
-			
-			String output = "";
-			int id;
-			String[] transInput_li;
-			
-			//System.out.println("Please enter what you would like to translate");
-			//input = s.nextLine();
-			input = input.toLowerCase();
-			transInput_li = input.split(" ");
-			for(String transInput:transInput_li) {
-				id = getID(transInput.substring(0, 1));
-				try {
-					output = output + " " +testTree.translate(id, transInput);
-				System.out.print(testTree.translate(id, transInput)+" ");
-				}catch(Exception e){
-					System.out.print(transInput+" ");
-				}
-				
-			}
-			return output;
-		}
 	public static int getID(String letter) {
 		int id = 0;
 		switch(letter) {
@@ -217,16 +192,16 @@ public class Menu {
 		
 		//testTree.showTree();
 		//adds words from file into linked lists
-		testTree.openFile("english.txt","spanish.txt");
+		testTree.openFile();
 		//runs the translate option that allows users to translate a word
 		return translate(temp);
 	
 	}
-	public void readFile(String inputFilePath) {
+	public String readFile(String inputFilePath) {
 	
 		FileReader fileReader = null;
         BufferedReader bufferedReader = null;
-        String fileName = "";
+        String fileName;
         String input;
         //Line will be split by spaces into individual words.
         String nextLine;
@@ -235,7 +210,7 @@ public class Menu {
         int lineNumber = -1;
         //Asking user to input file name
         fileName = inputFilePath;
-        
+        String translatedFile = "";
         
         try {
         	System.out.println(fileName);
@@ -285,9 +260,11 @@ public class Menu {
             	for(int i = 0; i < transWords.length; i++) {
             		if(i == 0) {
             			fullLine = transWords[i];
+            			translatedFile = translatedFile+transWords[i];
             		}
             		else {
             			fullLine = (fullLine + " " + transWords[i]);
+            			translatedFile = translatedFile+" "+transWords[i];
             		}            	    
             		
             		if (i == 0) {
@@ -301,17 +278,19 @@ public class Menu {
             	writeToFile(lineNumber, fullLine);
             	System.out.println();
                 nextLine = bufferedReader.readLine();
+                return translatedFile;
             }       
             bufferedReader.close();
             }
             catch (FileNotFoundException e)
             {
-                System.out.println("File to be translated could not be found!");
+                return("File to be translated could not be found!");
             }
             catch (IOException e)
            {
-                System.out.println("An error occured when opening and reading the file to be translated!");
-           }	
+                return("An error occured when opening and reading the file to be translated!");
+           }
+		return translatedFile;	
 	    }
 	
       public void writeToFile(int lineNumber, String text) {
@@ -348,6 +327,8 @@ public class Menu {
 	    }
 	    return true;
 	}
+	
+	
 
 }
 
