@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+
 public class Menu {
 	/**
 	 * 
@@ -58,10 +59,15 @@ public class Menu {
 		do {
 		System.out.println("Please enter what you would like to translate");
 		input = s.nextLine();
+		input = input.toLowerCase();
 		transInput_li = input.split(" ");
 		for(String transInput:transInput_li) {
 			id = getID(transInput.substring(0, 1));
+			try {
 			System.out.print(testTree.translate(id, transInput)+" ");
+			}catch(Exception e){
+				System.out.print(transInput+" ");
+			}
 		}
 		System.out.println("");
 		System.out.println("");
@@ -183,7 +189,9 @@ public class Menu {
 		testTree.insert(16, "p",listP);
 		
 		//testTree.showTree();
+		//adds words from file into linked lists
 		testTree.openFile();
+		//runs the translate option that allows users to translate a word
 		translate();
 	
 	}
