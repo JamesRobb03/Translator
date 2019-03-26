@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,6 +25,7 @@ public class Menu {
 		test.init();
 		test.englishToSpanish("jump");
 		test.spanishToEnglish("fregona");
+		test.addToFile("yeet","el yeeto","english.txt","spanish.txt");
 	}
 	
 	private void init(){
@@ -73,12 +75,12 @@ public class Menu {
 			try {
 
 			System.out.print(englishTree.translateEng(id, transInput)+" ");
-			output = output + " " +englishTree.translateEng(id, transInput);
+			//output = output + " " +englishTree.translateEng(id, transInput);
         
 			}catch(Exception e){
 				System.out.print(transInput+" ");
 			}
-			return outpout;
+			//return output;
 		}
 
 		System.out.println("");
@@ -96,14 +98,14 @@ public class Menu {
 			id = getID(transInput.substring(0, 1));
 			try {
 			System.out.print(spanishTree.translateSpa(id, transInput)+" ");
-      output = output + " " +spanishTree.translateSpa(id, transInput);
+     // output = output + " " +spanishTree.translateSpa(id, transInput);
 			}catch(Exception e){
 				System.out.print(transInput+" ");
 			}
 		}
 		System.out.println("");
 		System.out.println("");
-		return output;
+		//return output;
 
 	}
   
@@ -218,7 +220,7 @@ public class Menu {
 		return id;
 	}
 
-	private String englishToSpanish(String string) {
+	private void englishToSpanish(String string) {
 
 		
 		englishTree.insert(13, "m",listM);
@@ -253,7 +255,7 @@ public class Menu {
 		englishTree.openFile("english.txt", "spanish.txt");
 		//runs the translate option that allows users to translate a word
 
-		return translateEnglish(string);
+		translateEnglish(string);
 	}
 
 	
@@ -422,6 +424,42 @@ public class Menu {
 	        if (!Character.isDigit(c)) return false;
 	    }
 	    return true;
+	}
+	
+	public void addToFile(String eng, String esp, String engFile, String espFile) 
+	{
+		FileOutputStream outputStream1 = null;
+		FileOutputStream outputStream2 = null;
+        PrintWriter printWriter1 = null;
+        PrintWriter printWriter2 = null;
+        String fileName1 = engFile;
+        String fileName2 = espFile;
+        boolean flag = false;
+        String temp = null;
+        
+        Scanner s1 = new Scanner(System.in);
+        
+        try
+        {
+            outputStream1 = new FileOutputStream(fileName1, true);
+            outputStream2 = new FileOutputStream(fileName2, true);
+            printWriter1 = new PrintWriter(outputStream1);
+            printWriter2 = new PrintWriter(outputStream2);
+            printWriter1.println(eng);
+            printWriter2.println(esp);
+
+
+        }
+        catch (IOException e)
+        {
+            System.out.println("Sorry, there has been a problem opening or writing to the file");
+            System.out.println("/t" + e);
+        }
+        finally
+        {
+        	printWriter1.close();
+        	printWriter2.close();
+        }
 	}
 	
 	
