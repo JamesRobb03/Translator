@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,8 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
-
-
 public class Menu {
 	/**
 	 * 
@@ -20,13 +17,13 @@ public class Menu {
 	List listA, listB, listC, listD, listE, listF, listG, listH, listI, listJ, listK, listL, listM,listN,listO,listP,listQ,listR,listS,listT,listU,listV,listW,listX,listY,listZ;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Menu test = new Menu();
-		test.init();
-		test.runTest("hello im 10");
+		 //TODO Auto-generated method stub
+		 Menu test = new Menu();
+		 test.init();
+		 test.runTest("hello world");
 	}
 	
-	private void init(){
+	public void init(){
 		testTree=new Tree();
 		listA = new List();
 		listB = new List();
@@ -58,29 +55,27 @@ public class Menu {
 		s = new Scanner(System.in);
 	}
 	
-	public void translate(String string) {
-		String input;
+	public String translate(String input) {
+		
+		String output = "";
 		int id;
 		String[] transInput_li;
-		//do {
+		
 		//System.out.println("Please enter what you would like to translate");
 		//input = s.nextLine();
-		input = string;
 		input = input.toLowerCase();
 		transInput_li = input.split(" ");
 		for(String transInput:transInput_li) {
 			id = getID(transInput.substring(0, 1));
 			try {
+				output = output + " " +testTree.translate(id, transInput);
 			System.out.print(testTree.translate(id, transInput)+" ");
 			}catch(Exception e){
 				System.out.print(transInput+" ");
 			}
+			
 		}
-		System.out.println("");
-		System.out.println("");
-		//}while(input!="exit");
-		
-		
+		return output;
 	}
 	public static int getID(String letter) {
 		int id = 0;
@@ -166,7 +161,7 @@ public class Menu {
 		}
 		return id;
 	}
-	private void runTest(String string) {
+	public String runTest(String temp) {
 		
 		testTree.insert(13, "m",listM);
 		testTree.insert(6, "f",listF);
@@ -199,11 +194,11 @@ public class Menu {
 		//adds words from file into linked lists
 		testTree.openFile();
 		//runs the translate option that allows users to translate a word
-		translate(string);
+		return translate(temp);
 	
 	}
-	public void readFile() {
-		Scanner s1 = new Scanner(System.in);
+	public void readFile(String inputFilePath) {
+	
 		FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         String fileName = "";
@@ -214,9 +209,7 @@ public class Menu {
         String word;
         int lineNumber = -1;
         //Asking user to input file name
-        System.out.println("Enter the file path to be read from: ");
-        input = s1.nextLine();
-        fileName = input;
+        fileName = inputFilePath;
         
         
         try {
@@ -330,6 +323,7 @@ public class Menu {
 	    }
 	    return true;
 	}
+	
 	
 
 }
