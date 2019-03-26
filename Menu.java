@@ -15,18 +15,10 @@ public class Menu {
 	Scanner s;
 	Tree englishTree;
 	Tree spanishTree;
-	List listA, listB, listC, listD, listE, listF, listG, listH, listI, listJ, listK, listL, listM,listN,listO,listP,listQ,listR,listS,listT,listU,listV,listW,listX,listY,listZ;
-
-	public static void main(String[] args) {
-
-		// TODO Auto-generated method stub
-		Menu test = new Menu();
-		test.init();
-		test.englishToSpanish("jump");
-		test.spanishToEnglish("fregona");
-	}
-	
-	private void init(){
+	List listA, listB, listC, listD, listE, 
+	listF, listG, listH, listI, listJ, listK, listL, listM,listN,
+	listO,listP,listQ,listR,listS,listT,listU,listV,listW,listX,listY,listZ;
+	public void init(){
 		englishTree=new Tree();
 		spanishTree=new Tree();
 		listA = new List();
@@ -60,14 +52,14 @@ public class Menu {
 	}
 	
 
-	public void translateEnglish(String string) {
+	public String translateEnglish(String string) {
 		String input;
 		int id;
 		String[] transInput_li;
 		input = string;
-
 		input = input.toLowerCase();
 		transInput_li = input.split(" ");
+		String output = " ";
 		for(String transInput:transInput_li) {
 			id = getID(transInput.substring(0, 1));
 			try {
@@ -78,20 +70,19 @@ public class Menu {
 			}catch(Exception e){
 				System.out.print(transInput+" ");
 			}
-			return outpout;
+			return output;
 		}
-
-		System.out.println("");
-		System.out.println("");
+		return output;
 	}
 	
-	public void translateSpanish(String string) {
+	public String translateSpanish(String string) {
 		String input;
 		int id;
 		String[] transInput_li;
 		input = string;
 		input = input.toLowerCase();
 		transInput_li = input.split(" ");
+		String output = " ";
 		for(String transInput:transInput_li) {
 			id = getID(transInput.substring(0, 1));
 			try {
@@ -101,8 +92,6 @@ public class Menu {
 				System.out.print(transInput+" ");
 			}
 		}
-		System.out.println("");
-		System.out.println("");
 		return output;
 
 	}
@@ -217,84 +206,8 @@ public class Menu {
 		}
 		return id;
 	}
-
-	private String englishToSpanish(String string) {
-
-		
-		englishTree.insert(13, "m",listM);
-		englishTree.insert(6, "f",listF);
-		englishTree.insert(3, "c",listC);
-		englishTree.insert(1, "a",listA);
-		englishTree.insert(2, "b",listB);
-		englishTree.insert(4,"d", listD);
-		englishTree.insert(5,"e", listE);
-		englishTree.insert(9, "i",listI);
-		englishTree.insert(7,"g", listG);
-		englishTree.insert(8,"h", listH);
-		englishTree.insert(11, "k",listK);
-		englishTree.insert(10, "j",listJ);
-		englishTree.insert(12, "l",listL);
-		englishTree.insert(20, "t",listT);
-		englishTree.insert(23, "w",listW);
-		englishTree.insert(25, "y",listY);
-		englishTree.insert(26, "z",listZ);
-		englishTree.insert(24, "x",listX);
-		englishTree.insert(21, "u",listU);
-		englishTree.insert(22, "v",listV);
-		englishTree.insert(17, "q",listQ);
-		englishTree.insert(18,"r", listR);
-		englishTree.insert(19,"s", listS);
-		englishTree.insert(15, "o",listO);
-		englishTree.insert(14, "n",listN);
-		englishTree.insert(16, "p",listP);
-		
-		englishTree.showTree();
-		//adds words from file into linked lists
-		englishTree.openFile("english.txt", "spanish.txt");
-		//runs the translate option that allows users to translate a word
-
-		return translateEnglish(string);
-	}
-
-	
-	private void spanishToEnglish(String string) {
-		
-		spanishTree.insert(13, "m",listM);
-		spanishTree.insert(6, "f",listF);
-		spanishTree.insert(3, "c",listC);
-		spanishTree.insert(1, "a",listA);
-		spanishTree.insert(2, "b",listB);
-		spanishTree.insert(4,"d", listD);
-		spanishTree.insert(5,"e", listE);
-		spanishTree.insert(9, "i",listI);
-		spanishTree.insert(7,"g", listG);
-		spanishTree.insert(8,"h", listH);
-		spanishTree.insert(11, "k",listK);
-		spanishTree.insert(10, "j",listJ);
-		spanishTree.insert(12, "l",listL);
-		spanishTree.insert(20, "t",listT);
-		spanishTree.insert(23, "w",listW);
-		spanishTree.insert(25, "y",listY);
-		spanishTree.insert(26, "z",listZ);
-		spanishTree.insert(24, "x",listX);
-		spanishTree.insert(21, "u",listU);
-		spanishTree.insert(22, "v",listV);
-		spanishTree.insert(17, "q",listQ);
-		spanishTree.insert(18,"r", listR);
-		spanishTree.insert(19,"s", listS);
-		spanishTree.insert(15, "o",listO);
-		spanishTree.insert(14, "n",listN);
-		spanishTree.insert(16, "p",listP);
-		
-		//testTree.showTree();
-		//adds words from file into linked lists
-		spanishTree.openFile("spanish.txt", "english.txt");
-		//runs the translate option that allows users to translate a word
-		translateSpanish(string);
-	}
-
 	public String readFile(String inputFilePath) {
-
+	
 		FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         String fileName;
@@ -422,6 +335,81 @@ public class Menu {
 	        if (!Character.isDigit(c)) return false;
 	    }
 	    return true;
+	}
+ public String englishToSpanish(String string) {
+
+		
+		englishTree.insert(13, "m",listM);
+		englishTree.insert(6, "f",listF);
+		englishTree.insert(3, "c",listC);
+		englishTree.insert(1, "a",listA);
+		englishTree.insert(2, "b",listB);
+		englishTree.insert(4,"d", listD);
+		englishTree.insert(5,"e", listE);
+		englishTree.insert(9, "i",listI);
+		englishTree.insert(7,"g", listG);
+		englishTree.insert(8,"h", listH);
+		englishTree.insert(11, "k",listK);
+		englishTree.insert(10, "j",listJ);
+		englishTree.insert(12, "l",listL);
+		englishTree.insert(20, "t",listT);
+		englishTree.insert(23, "w",listW);
+		englishTree.insert(25, "y",listY);
+		englishTree.insert(26, "z",listZ);
+		englishTree.insert(24, "x",listX);
+		englishTree.insert(21, "u",listU);
+		englishTree.insert(22, "v",listV);
+		englishTree.insert(17, "q",listQ);
+		englishTree.insert(18,"r", listR);
+		englishTree.insert(19,"s", listS);
+		englishTree.insert(15, "o",listO);
+		englishTree.insert(14, "n",listN);
+		englishTree.insert(16, "p",listP);
+		
+		//englishTree.showTree();
+		//adds words from file into linked lists
+		englishTree.openFile("C:\\Users\\Harrys-Laptop\\eclipse-workspace\\Translator\\src\\english.txt", "C:\\Users\\Harrys-Laptop\\eclipse-workspace\\Translator\\src\\spanish.txt");
+		//runs the translate option that allows users to translate a word
+
+		return translateEnglish(string);
+	}
+
+	
+	public String spanishToEnglish(String string) {
+		
+		spanishTree.insert(13, "m",listM);
+		spanishTree.insert(6, "f",listF);
+		spanishTree.insert(3, "c",listC);
+		spanishTree.insert(1, "a",listA);
+		spanishTree.insert(2, "b",listB);
+		spanishTree.insert(4,"d", listD);
+		spanishTree.insert(5,"e", listE);
+		spanishTree.insert(9, "i",listI);
+		spanishTree.insert(7,"g", listG);
+		spanishTree.insert(8,"h", listH);
+		spanishTree.insert(11, "k",listK);
+		spanishTree.insert(10, "j",listJ);
+		spanishTree.insert(12, "l",listL);
+		spanishTree.insert(20, "t",listT);
+		spanishTree.insert(23, "w",listW);
+		spanishTree.insert(25, "y",listY);
+		spanishTree.insert(26, "z",listZ);
+		spanishTree.insert(24, "x",listX);
+		spanishTree.insert(21, "u",listU);
+		spanishTree.insert(22, "v",listV);
+		spanishTree.insert(17, "q",listQ);
+		spanishTree.insert(18,"r", listR);
+		spanishTree.insert(19,"s", listS);
+		spanishTree.insert(15, "o",listO);
+		spanishTree.insert(14, "n",listN);
+		spanishTree.insert(16, "p",listP);
+		
+		//testTree.showTree();
+		//adds words from file into linked lists
+		spanishTree.openFile("C:\\Users\\Harrys-Laptop\\eclipse-workspace\\Translator\\src\\spanish.txt", "C:\\Users\\Harrys-Laptop\\eclipse-workspace\\Translator\\src\\english.txt");
+		//runs the translate option that allows users to translate a word
+		return translateSpanish(string);
+		
 	}
 	
 	

@@ -232,8 +232,8 @@ public class Tree {
 			
 			try
 	        {
-	            fileReader = new FileReader(file1);
-	            fileReader2 = new FileReader(file2);
+	            fileReader = new FileReader(filename);
+	            fileReader2 = new FileReader(filename2);
 
 	            bufferedReader = new BufferedReader(fileReader);
 	            bufferedReader2 = new BufferedReader(fileReader2);
@@ -308,5 +308,3 @@ public class Tree {
 	        }
 		}
 }
-
-	 
