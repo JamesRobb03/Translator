@@ -2,8 +2,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
 import org.apache.commons.lang3.StringUtils;
+
 
 public class Tree {
 	 TreeNode root;
@@ -232,8 +232,8 @@ public class Tree {
 			
 			try
 	        {
-	            fileReader = new FileReader(filename);
-	            fileReader2 = new FileReader(filename2);
+	            fileReader = new FileReader(file1);
+	            fileReader2 = new FileReader(file2);
 
 	            bufferedReader = new BufferedReader(fileReader);
 	            bufferedReader2 = new BufferedReader(fileReader2);
@@ -264,6 +264,49 @@ public class Tree {
 	        }
 		}
 
-
 	  
+	  public static void printDictionary() 
+	  {
+		  String filename = "english.txt";
+			String filename2 = "spanish.txt";
+			FileReader fileReader = null;
+			FileReader fileReader2 = null;
+	        BufferedReader bufferedReader = null;
+	        BufferedReader bufferedReader2 = null;
+	        String nextLine;
+	        String nextLine2;
+	        int temp;
+			
+			try
+	        {
+	            fileReader = new FileReader(filename);
+	            fileReader2 = new FileReader(filename2);
+
+	            bufferedReader = new BufferedReader(fileReader);
+	            bufferedReader2 = new BufferedReader(fileReader2);
+
+	            nextLine = bufferedReader.readLine();
+	            nextLine2 = bufferedReader2.readLine();
+
+	            System.out.println("English : Spanish");
+	            while (nextLine != null)
+	            {
+	            	System.out.println(nextLine+" : "+nextLine2);
+	                nextLine = bufferedReader.readLine();
+	                nextLine2 = bufferedReader2.readLine();
+	            }
+	            
+	            bufferedReader.close();
+	        }
+	        catch (FileNotFoundException e)
+	        {
+	            System.out.println("Sorry, your file was not found.");
+	        }
+	        catch (IOException e)
+	        {
+	            System.out.println("Sorry, there has been a problem opening or reading from the file");
+	        }
+		}
 }
+
+	 

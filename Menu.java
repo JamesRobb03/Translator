@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,8 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
-
-
 public class Menu {
 	/**
 	 * 
@@ -21,6 +18,7 @@ public class Menu {
 	List listA, listB, listC, listD, listE, listF, listG, listH, listI, listJ, listK, listL, listM,listN,listO,listP,listQ,listR,listS,listT,listU,listV,listW,listX,listY,listZ;
 
 	public static void main(String[] args) {
+
 		// TODO Auto-generated method stub
 		Menu test = new Menu();
 		test.init();
@@ -61,21 +59,28 @@ public class Menu {
 		s = new Scanner(System.in);
 	}
 	
+
 	public void translateEnglish(String string) {
 		String input;
 		int id;
 		String[] transInput_li;
 		input = string;
+
 		input = input.toLowerCase();
 		transInput_li = input.split(" ");
 		for(String transInput:transInput_li) {
 			id = getID(transInput.substring(0, 1));
 			try {
+
 			System.out.print(englishTree.translateEng(id, transInput)+" ");
+			output = output + " " +englishTree.translateEng(id, transInput);
+        
 			}catch(Exception e){
 				System.out.print(transInput+" ");
 			}
+			return outpout;
 		}
+
 		System.out.println("");
 		System.out.println("");
 	}
@@ -91,16 +96,17 @@ public class Menu {
 			id = getID(transInput.substring(0, 1));
 			try {
 			System.out.print(spanishTree.translateSpa(id, transInput)+" ");
+      output = output + " " +spanishTree.translateSpa(id, transInput);
 			}catch(Exception e){
 				System.out.print(transInput+" ");
 			}
 		}
 		System.out.println("");
 		System.out.println("");
+		return output;
 
-		
-		
 	}
+  
 	public static int getID(String letter) {
 		int id = 0;
 		switch(letter) {
@@ -211,7 +217,9 @@ public class Menu {
 		}
 		return id;
 	}
-	private void englishToSpanish(String string) {
+
+	private String englishToSpanish(String string) {
+
 		
 		englishTree.insert(13, "m",listM);
 		englishTree.insert(6, "f",listF);
@@ -244,8 +252,10 @@ public class Menu {
 		//adds words from file into linked lists
 		englishTree.openFile("english.txt", "spanish.txt");
 		//runs the translate option that allows users to translate a word
-		translateEnglish(string);
+
+		return translateEnglish(string);
 	}
+
 	
 	private void spanishToEnglish(String string) {
 		
@@ -282,12 +292,12 @@ public class Menu {
 		//runs the translate option that allows users to translate a word
 		translateSpanish(string);
 	}
-	
-	public void readFile() {
-		Scanner s1 = new Scanner(System.in);
+
+	public String readFile(String inputFilePath) {
+
 		FileReader fileReader = null;
         BufferedReader bufferedReader = null;
-        String fileName = "";
+        String fileName;
         String input;
         //Line will be split by spaces into individual words.
         String nextLine;
@@ -295,10 +305,8 @@ public class Menu {
         String word;
         int lineNumber = -1;
         //Asking user to input file name
-        System.out.println("Enter the file path to be read from: ");
-        input = s1.nextLine();
-        fileName = input;
-        
+        fileName = inputFilePath;
+        String translatedFile = "";
         
         try {
         	System.out.println(fileName);
@@ -348,9 +356,11 @@ public class Menu {
             	for(int i = 0; i < transWords.length; i++) {
             		if(i == 0) {
             			fullLine = transWords[i];
+            			translatedFile = translatedFile+transWords[i];
             		}
             		else {
             			fullLine = (fullLine + " " + transWords[i]);
+            			translatedFile = translatedFile+" "+transWords[i];
             		}            	    
             		
             		if (i == 0) {
@@ -364,17 +374,19 @@ public class Menu {
             	writeToFile(lineNumber, fullLine);
             	System.out.println();
                 nextLine = bufferedReader.readLine();
+                return translatedFile;
             }       
             bufferedReader.close();
             }
             catch (FileNotFoundException e)
             {
-                System.out.println("File to be translated could not be found!");
+                return("File to be translated could not be found!");
             }
             catch (IOException e)
            {
-                System.out.println("An error occured when opening and reading the file to be translated!");
-           }	
+                return("An error occured when opening and reading the file to be translated!");
+           }
+		return translatedFile;	
 	    }
 	
       public void writeToFile(int lineNumber, String text) {
@@ -411,6 +423,7 @@ public class Menu {
 	    }
 	    return true;
 	}
+	
 	
 
 }
