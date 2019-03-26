@@ -1,9 +1,7 @@
 
 /**
- * Performs actions on the list's nodes
  * 
  * @author AC12001 Team
- * @version January 2018
  */
 public class ListNode    
 {
@@ -45,7 +43,7 @@ public class ListNode
     {
         String info;
         
-        info = "English "+ english;
+        info = "English "+ english+", Spanish "+spanish;
         
         return info;
     }

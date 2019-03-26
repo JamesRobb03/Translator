@@ -20,7 +20,8 @@ public class Menu {
 		 //TODO Auto-generated method stub
 		 Menu test = new Menu();
 		 test.init();
-		 test.runTest("hello world");
+		 test.runTest("hello world , i bet you all hate java right now");
+		 //Tree.printDictionary();
 	}
 	
 	public void init(){
@@ -52,6 +53,7 @@ public class Menu {
 		listY = new List();
 		listZ = new List();
 		
+		
 		s = new Scanner(System.in);
 	}
 	
@@ -77,6 +79,29 @@ public class Menu {
 		}
 		return output;
 	}
+	
+	public String translateSpan(String input) {
+			
+			String output = "";
+			int id;
+			String[] transInput_li;
+			
+			//System.out.println("Please enter what you would like to translate");
+			//input = s.nextLine();
+			input = input.toLowerCase();
+			transInput_li = input.split(" ");
+			for(String transInput:transInput_li) {
+				id = getID(transInput.substring(0, 1));
+				try {
+					output = output + " " +testTree.translate(id, transInput);
+				System.out.print(testTree.translate(id, transInput)+" ");
+				}catch(Exception e){
+					System.out.print(transInput+" ");
+				}
+				
+			}
+			return output;
+		}
 	public static int getID(String letter) {
 		int id = 0;
 		switch(letter) {
@@ -192,7 +217,7 @@ public class Menu {
 		
 		//testTree.showTree();
 		//adds words from file into linked lists
-		testTree.openFile();
+		testTree.openFile("english.txt","spanish.txt");
 		//runs the translate option that allows users to translate a word
 		return translate(temp);
 	
@@ -323,8 +348,6 @@ public class Menu {
 	    }
 	    return true;
 	}
-	
-	
 
 }
 
