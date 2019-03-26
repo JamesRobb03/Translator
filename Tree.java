@@ -76,53 +76,6 @@ public class Tree {
 	        }
 	        return maxVal;
 	    }
-	    /**
-	     * Deletes a node from the tree
-	     * @param root - current node
-	     * @param id - id to be deleted
-	     * @return - new node in place of deleted one
-	     */
-	    private TreeNode deleteRecursive(TreeNode root,int id)
-	    {
-	        //If tree is empty - do nothing
-	        if(root==null) return root;
-	       
-	        //If not, go through tree
-	        if(id<root.id)
-	        {
-	            root.left = deleteRecursive(root.left, id);
-	        }
-	        else if(id>root.id)
-	        {
-	            root.right = deleteRecursive(root.right,id);
-	        }
-	        //if id is same as roots id then that is the one to be deleted
-	        else
-	        {
-	            //node with one or no leaf
-	            if(root.left == null)
-	            {
-	                return root.right;
-	            }
-	            else if(root.right == null)
-	            {
-	                return root.left;
-	            }
-	            //node with 2 leaves
-	            root.id = minValue(root.right);
-	           
-	            root.right = deleteRecursive(root.right,root.id);
-	        }
-	        return root;
-	    }
-	    /**
-	     * calls the recursive method
-	     * @param id - id to be deleted
-	     */
-	    public void delete(int id)
-	    {
-	        root = deleteRecursive(root,id);
-	    }
 	   
 	    /**
 	     * Uses recursion to check if node with that id is in the BT
@@ -242,7 +195,12 @@ public class Tree {
 	         }
 	     }
 	  
-	  
+	  /**
+	   * 
+	   * @param id the id of the first letter of the word
+	   * @param english the English word to be translated
+	   * @return returns the spanish word that corrosponds with the 
+	   */
 	  public String translate(int id, String english) {
 		  String spanish;
 		  TreeNode current = search(id);
