@@ -2,8 +2,8 @@
 /**
  * Performs actions on the list's nodes
  * 
- * @author AC12001 Team
- * @version January 2018
+ * @author James Robb
+ * 
  */
 public class ListNode    
 {

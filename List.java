@@ -6,8 +6,8 @@ import java.io.FileNotFoundException;
 /**
  * Lab 1
  * 
- * @author AC12001 Team
- * @version January 2018
+ * @author James Robb
+ * 
  */
 public class List 
 {
@@ -25,8 +25,8 @@ public class List
      /**
      * Add a new node at the start of a list
      * 
-     * @param student Student name or ID
-     * @param mark Student mark  
+     * @param english english string stored in listnode 
+     * @param spanish spanish string stored in listnode
      */
     public void addToList(String english, String spanish)
     {
@@ -38,38 +38,22 @@ public class List
         head = newOne;
     }
     
-    /**
-     * Print the list, starting at head
-     */
-     public void printList()
-     {
-        ListNode marker;
-
-        if (head == null)
-        {
-        	System.out.println("The list is empty.");  
-        }
-        else
-        {
-	        System.out.println("The list contains:");    
-	        for (marker = head; marker != null; marker=marker.getNext())
-	        {
-	              System.out.println(marker.printInfo());  
-	        }
-        }
-    }
-
      public String spanishFromNode(ListNode foundNode) {
     	 String spanish = foundNode.getSpanish();
     	 return spanish;
      }
+     public String englishFromNode(ListNode foundNode) {
+    	 String english = foundNode.getSpanish();
+    	 return english;
+     }
+     
    /**
      * Find a node
      * 
-     * @param  student Student to find
-     * @return node if found, else null
+     * @param  english english word to be found.
+     * @return nfoundNode returns the node in which the english word was found
      */
-     public ListNode findInList(String english)
+     public ListNode findEnglishInList(String english)
     {
         ListNode marker, foundNode=null;
 
@@ -85,4 +69,20 @@ public class List
 
          return foundNode;  
     }
+     public ListNode findSpanishInList(String spanish)
+     {
+         ListNode marker, foundNode=null;
+
+         
+         for (marker = head; marker != null && foundNode == null; marker=marker.getNext())
+         {
+             if (spanish.equals(marker.getEnglish()))
+             {
+             	foundNode = marker;
+       
+             }
+         }
+
+          return foundNode;  
+     }
 }
