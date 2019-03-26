@@ -2,8 +2,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import org.apache.commons.lang3.StringUtils;
 
-//import binaryTree.treeNode;
 
 public class Tree {
 	 TreeNode root;
@@ -201,18 +201,27 @@ public class Tree {
 	   * 
 	   * @param id the id of the first letter of the word
 	   * @param english the English word to be translated
-	   * @return returns the spanish word that corrosponds with the 
+	   * @return returns the Spanish word that corresponds with the English word
 	   */
-	  public String translate(int id, String english) {
+	  public String translateEng(int id, String english) {
 		  String spanish;
 		  TreeNode current = search(id);
-		  ListNode node = current.list.findInList(english);
+		  ListNode node = current.list.findEnglishInList(english);
 		  spanish = current.list.spanishFromNode(node);
 		  return spanish;
 	  }
+	  public String translateSpa(int id, String spanish) {
+		  String english;
+		  TreeNode current = search(id);
+		  ListNode node = current.list.findSpanishInList(spanish);
+		  english = current.list.englishFromNode(node);
+		  return english;
+	  }
 	  
-	  public void openFile(String file1, String file2) {
-
+	  public void openFile(String lang1, String lang2) {
+			
+			String filename = lang1;
+			String filename2 = lang2;
 			FileReader fileReader = null;
 			FileReader fileReader2 = null;
 	        BufferedReader bufferedReader = null;
@@ -231,6 +240,7 @@ public class Tree {
 
 	            nextLine = bufferedReader.readLine();
 	            nextLine2 = bufferedReader2.readLine();
+	            nextLine = StringUtils.stripAccents(nextLine);
 
 	            while (nextLine != null)
 	            {
@@ -238,6 +248,7 @@ public class Tree {
 	            	TreeNode current = search(temp);
 	            	current.list.addToList(nextLine, nextLine2);
 	                nextLine = bufferedReader.readLine();
+	                nextLine = StringUtils.stripAccents(nextLine);
 	                nextLine2 = bufferedReader2.readLine();
 	            }
 	            
@@ -252,6 +263,7 @@ public class Tree {
 	            System.out.println("Sorry, there has been a problem opening or reading from the file");
 	        }
 		}
+
 	  
 	  public static void printDictionary() 
 	  {

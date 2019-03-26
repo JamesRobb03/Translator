@@ -1,7 +1,10 @@
 
 /**
  * 
- * @author AC12001 Team
+
+ * @author James Robb
+ * 
+
  */
 public class ListNode    
 {
