@@ -1,5 +1,4 @@
 
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -149,6 +148,9 @@ public class GUI {
 		panel.setBackground(Color.WHITE);
 		tabbedPane.addTab("Translate a file", null, panel, null);
 		panel.setLayout(null);
+		JLabel speedyBoi = new JLabel("");
+		speedyBoi.setBounds(47, 16, 269, 20);
+		panel.add(speedyBoi);
 		JComboBox comboBox_1 = new JComboBox(temp);
 		comboBox_1.setBounds(112, 73, 162, 37);
 		panel.add(comboBox_1);
@@ -175,7 +177,6 @@ public class GUI {
 		JLabel label_8 = new JLabel("Language 2");
 		label_8.setBounds(451, 73, 82, 37);
 		panel.add(label_8);
-		
 		JLabel lblPleaseEntherThe = new JLabel("Please enter the file path");
 		lblPleaseEntherThe.setBounds(25, 131, 194, 37);
 		panel.add(lblPleaseEntherThe);
@@ -190,15 +191,26 @@ public class GUI {
 						(comboBox_2.getSelectedItem().toString().equals("Spanish")))) 
 				{
 				//gibberish.runTest(inputtxtTranslatepan.getText());
-					fileTxtArea.setText(gibberish.readFile(filepathIn.getText(),"english"));
+					
+					double startTime = System.nanoTime();
+					String tempVal = gibberish.readFile(filepathIn.getText(),"english");
+					double amountOfWords = gibberish.howManyWords(tempVal);
+					fileTxtArea.setText(tempVal);
+					double endTime = System.nanoTime();
+					double duration = (endTime - startTime)/1000000;
+					duration = duration/1000;
+					System.out.println(amountOfWords + " " +duration);
+					double wps = amountOfWords / duration;
+					String roundWps = String.format("%.2f", wps);
+					speedyBoi.setText("Words per second:"+roundWps);
+					//fileTxtArea.setText(gibberish.readFile(filepathIn.getText(),"english"));
 				}
 				else if((comboBox_1.getSelectedItem().equals("Spanish")&&(comboBox_2.getSelectedItem().equals("English"))))
 				{
 				fileTxtArea.setText(gibberish.readFile(filepathIn.getText(),"spanish"));
 			}
 			}
-		});
-			
+		});	
 		filePAthbtn.setBounds(603, 139, 115, 29);
 		panel.add(filePAthbtn);
 		
@@ -206,6 +218,8 @@ public class GUI {
 		scrollPane.setBounds(83, 193, 649, 213);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scrollPane);
+		
+		
 		
 		JPanel addPanel = new JPanel();
 		addPanel.setBackground(Color.WHITE);
@@ -342,5 +356,6 @@ public class GUI {
 		temp[1] = "Spanish";
 		temp[1] = "English";
 		temp[0] = "Spanish";
-			}}
+			}	
+}
 		

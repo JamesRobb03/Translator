@@ -306,6 +306,13 @@ public class Menu {
            }
 	    }
 	
+	public int howManyWords(String string) {
+		int words = 0;
+		String[] word_li;
+		word_li = string.split(" ");
+		words = word_li.length;
+		return words;
+	}
       public void writeToFile(int lineNumber, String text) {
         text = text + System.lineSeparator();
         if(lineNumber == 0) {
