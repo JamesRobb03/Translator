@@ -7,17 +7,24 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
+
+/**
+ * 
+ * @author James Robb, Harry Finch, Harry Jamison, Daniel Denley
+ *
+ */
 public class Menu {
-	/**
-	 * 
-	 * @param args
-	 */
+
 	Scanner s;
 	Tree englishTree;
 	Tree spanishTree;
 	List listA, listB, listC, listD, listE, 
 	listF, listG, listH, listI, listJ, listK, listL, listM,listN,
 	listO,listP,listQ,listR,listS,listT,listU,listV,listW,listX,listY,listZ;
+	
+	/**
+	 * Initialises the lists and trees used, also initialises scanner which was used for user input while testing
+	 */
 	public void init(){
 		englishTree=new Tree();
 		spanishTree=new Tree();
@@ -52,6 +59,11 @@ public class Menu {
 	}
 	
 
+	/**
+	 * Method which translates an english string into spanish. 
+	 * @param string english string to be translated 
+	 * @return returns an output string to the gui
+	 */
 	public String translateEnglish(String string) {
 		String input;
 		int id;
@@ -75,6 +87,11 @@ public class Menu {
 		return output;
 	}
 	
+	/**
+	 * method which translates a spanish string into an english string.
+	 * @param string spanish string which is translated into an english string
+	 * @return returns the output string which is used by the GUI
+	 */
 	public String translateSpanish(String string) {
 		String input;
 		int id;
@@ -95,7 +112,12 @@ public class Menu {
 		return output;
 
 	}
-  
+	
+	/**
+	 * Method which obtains an ID based on the first letter of the word
+	 * @param letter first letter of the word which will be translated
+	 * @return id returns the id of the letter.
+	 */
 	public static int getID(String letter) {
 		int id = 0;
 		switch(letter) {
@@ -206,6 +228,13 @@ public class Menu {
 		}
 		return id;
 	}
+	
+	/**
+	 * method which reads in a file and translates it line by line
+	 * the method then writes the line to a separate file.
+	 * @param inputFilePath the file path of the file to be translated
+	 * @return returns the translated string.
+	 */
 	public String readFile(String inputFilePath) {
 	
 		FileReader fileReader = null;
@@ -302,6 +331,12 @@ public class Menu {
 		return translatedFile;	
 	    }
 	
+		/**
+		 * method which writes to file
+		 * @param lineNumber line number to write too
+		 * @param text the body of text being translated
+		 */
+	
       public void writeToFile(int lineNumber, String text) {
         text = text + System.lineSeparator();
         if(lineNumber == 0) {
@@ -327,7 +362,11 @@ public class Menu {
         }		
       }
 
-	
+	/**
+	 * method to see if the string is a number. found online.
+	 * @param str the text being translated
+	 * @return returns true if number or false if not
+	 */
 	public static boolean isNumeric(String str)
 	{
 	    for (char c : str.toCharArray())
@@ -336,8 +375,13 @@ public class Menu {
 	    }
 	    return true;
 	}
- public String englishToSpanish(String string) {
-
+	
+	/**
+	 * method which translates a string from english to spanish. fills the tree and lists then runs the translate method.
+	 * @param string the string to be translated
+	 * @return returns the translated string with how fast it was translated added to the end.
+	 */
+	public String englishToSpanish(String string) {
 		
 		englishTree.insert(13, "m",listM);
 		englishTree.insert(6, "f",listF);
@@ -386,7 +430,11 @@ public class Menu {
 		return output;
 	}
 
-	
+	/**
+	 *method which translates a string from spanish to english. fills the tree and lists then runs the translate method.
+	 * @param string the string to be translated
+	 * @return returns the translated string with how fast it was translated added to the end.
+	 */
 	public String spanishToEnglish(String string) {
 		
 		spanishTree.insert(13, "m",listM);
@@ -421,18 +469,26 @@ public class Menu {
 		spanishTree.openFile("dictionary/spanish.txt", "dictionary/english.txt");
 		//runs the translate option that allows users to translate a word
 		//gets the wpm of the translation 
-		int amountOfWords = howManyWords(string);
-		long startTime = System.nanoTime();
+		double amountOfWords = howManyWords(string);
+		double startTime = System.nanoTime();
 		String translate = translateSpanish(string);
-		long endTime = System.nanoTime();
-		long duration = (endTime - startTime)/1000000;
+		double endTime = System.nanoTime();
+		double duration = (endTime - startTime)/1000000;
 		duration = duration/1000;
-		float wps = duration * amountOfWords;
-		String output = translate + " was translated in "+wps+"WPS.";
+		System.out.println(amountOfWords + " " +duration);
+		double wps = amountOfWords / duration;
+		String roundWps = String.format("%.2f", wps);
+		
+		String output = translate + " was translated in "+roundWps+" WPS.";
 		return output;
 		
 	}
 	
+	/**
+	 * method which counts the amount of words in a string used to calculate the words per second
+	 * @param string string to be counted
+	 * @return returns the amount of words.
+	 */
 	private int howManyWords(String string) {
 		int words = 0;
 		String[] word_li;
