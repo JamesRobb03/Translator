@@ -37,21 +37,30 @@ public class List
         
         head = newOne;
     }
-    
+    /**
+     * method which gets the spanish word form the found english words node
+     * @param foundNode the node in which the word is stored
+     * @return returns the Spanish word from the found node.
+     */
      public String spanishFromNode(ListNode foundNode) {
     	 String spanish = foundNode.getSpanish();
     	 return spanish;
      }
+     /**
+      * method which gets the english word from the found spanish words node
+      * @param foundNode the node in which the word is stored
+      * @return returns the English word from the found node
+      */
      public String englishFromNode(ListNode foundNode) {
     	 String english = foundNode.getSpanish();
     	 return english;
      }
      
    /**
-     * Find a node
+     * Finds the node that has the string 
      * 
      * @param  english english word to be found.
-     * @return nfoundNode returns the node in which the english word was found
+     * @return foundNode returns the node in which the english word was found
      */
      public ListNode findEnglishInList(String english)
     {
@@ -69,6 +78,12 @@ public class List
 
          return foundNode;  
     }
+     
+     /**
+      * 
+      * @param spanish the word in spanish to be found
+      * @return foundNode returns the node in which the Spanish word was found
+      */
      public ListNode findSpanishInList(String spanish)
      {
          ListNode marker, foundNode=null;

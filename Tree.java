@@ -3,7 +3,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
-
+/**
+ * 
+ * @author James Robb & Harry Finch
+ *
+ */
 
 public class Tree {
 	 TreeNode root;
@@ -109,11 +113,6 @@ public class Tree {
 	        return findNodeRecursive(root, id);
 	    }
 	   
-	    /**
-	     * adds all the costs in the tree
-	     * @param root current node
-	     * @return the total cost (INT)
-	     */
 	    
 	    /**
 	     * boolean for whether or not the node exists in the tree
@@ -139,6 +138,7 @@ public class Tree {
 	        }
 	       
 	    }
+	    
 	    /**
 	     * Searches for a specific item in the tree
 	     * @param current - current node
@@ -170,12 +170,10 @@ public class Tree {
 	     */
 	    public void showTree()
 	    {
-	        indent = 0; // needs to be added as an instance variable
+	        indent = 0; 
 	        displayTree(root);
 
 	   }
-
-
 	  public void displayTree(TreeNode p)
 	    {
 	      int i;
@@ -198,7 +196,7 @@ public class Tree {
 	     }
 	  
 	  /**
-	   * 
+	   * method which translates a word from english to spanish
 	   * @param id the id of the first letter of the word
 	   * @param english the English word to be translated
 	   * @return returns the Spanish word that corresponds with the English word
@@ -210,6 +208,13 @@ public class Tree {
 		  spanish = current.list.spanishFromNode(node);
 		  return spanish;
 	  }
+	  
+	  /**
+	   * method which translates a word from spanish to english
+	   * @param id the id of the first letter of the word
+	   * @param spanish the Spanish word to be translated
+	   * @return returns the English word that corresponds to the Spanish word
+	   */
 	  public String translateSpa(int id, String spanish) {
 		  String english;
 		  TreeNode current = search(id);
@@ -218,6 +223,11 @@ public class Tree {
 		  return english;
 	  }
 	  
+	  /**
+	   * method which reads the dictionary into the binary tree and linked list data structure.
+	   * @param lang1 the primary language to be inserted into the tree
+	   * @param lang2 the secondary language to be inserted into the tree
+	   */
 	  public void openFile(String lang1, String lang2) {
 			
 			String filename = lang1;
@@ -264,7 +274,9 @@ public class Tree {
 	        }
 		}
 
-	  
+	  /**
+	   * method which prints the dictionary to console.
+	   */
 	  public static void printDictionary() 
 	  {
 		  String filename = "english.txt";
