@@ -1,10 +1,5 @@
 
 /**
- * Performs actions on the list's nodes
- * 
- * @author AC12001 Team
- 
-/**
  * 
  * @author James Robb
  * 
