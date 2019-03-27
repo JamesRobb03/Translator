@@ -27,7 +27,7 @@ public class Menu {
 		test.spanishToEnglish("fregona");
 		//test.addToFile("yeet","el yeeto","english.txt","spanish.txt");
 		//Test for translating spanish
-		test.readFile("C:\\Users\\danieldenley\\Desktop\\Final Proj Trans\\Translator-master\\Translator-master\\testingTrans", "spanish");
+		test.readFile("C:\\Users\\danieldenley\\Desktop\\Final Proj Trans\\Translator-master\\Translator-master\\testingTrans", "english");
 		
 	}
 	
@@ -383,7 +383,6 @@ public class Menu {
             	writeToFile(lineNumber, fullLine);
             	System.out.println();
                 nextLine = bufferedReader.readLine();
-                return translatedFile;
             }       
             bufferedReader.close();
             }
