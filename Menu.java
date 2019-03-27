@@ -25,8 +25,12 @@ public class Menu {
 		test.init();
 		test.englishToSpanish("jump");
 		test.spanishToEnglish("fregona");
-		test.addToFile("yeet","el yeeto","english.txt","spanish.txt");
+		//test.addToFile("yeet","el yeeto","english.txt","spanish.txt");
+		//Test for translating spanish
+		test.readFile("C:\\Users\\danieldenley\\Desktop\\Final Proj Trans\\Translator-master\\Translator-master\\testingTrans", "spanish");
+		
 	}
+	
 	
 	private void init(){
 		englishTree=new Tree();
@@ -295,30 +299,28 @@ public class Menu {
 		translateSpanish(string);
 	}
 
-	public String readFile(String inputFilePath) {
-
+	public String readFile(String inputFilePath, String originLang) {
 		FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         String fileName;
         String input;
-        //Line will be split by spaces into individual words.
         String nextLine;
         int wordNumber = 0;
         String word;
         int lineNumber = -1;
-        //Asking user to input file name
         fileName = inputFilePath;
         String translatedFile = "";
         
         try {
-        	System.out.println(fileName);
         	fileReader = new FileReader(fileName);
             bufferedReader = new BufferedReader(fileReader); 
             nextLine = bufferedReader.readLine();
+            
+            //While there is a next line read current line
             while (nextLine != null)
             {
             	lineNumber++;
-            	//Code to split and store into array
+            	//Code to split line and store into array of strings
             	String[] words = nextLine.split("\\s+");
             	
             	//Removing punctuation from words
@@ -328,20 +330,27 @@ public class Menu {
             		words[e] = words[e].toLowerCase();
             	}
             	
+            	//Creating new array to store translated words from current line
             	String[] transWords = new String[words.length];
-            	//int i = 0; i < words.length; i++
+            	
+            	//For each word in the array translate and store into new array
             	for(int i = 0; i < words.length; i++) {
             		int idOfWord;
-            		//Set translation to word[i] after being put in translator
-            		//Firstly get id for word which stands for its first letter
-            		//Secondly give it the english word as a string
             		
+            		//If the string is a number it will be ignored if not it is translated here
                 	if(isNumeric(words[i]) == false) {
-                		 //Code must be located here which translate words[i] to spanish then places in transWords[i]:
+                		//A translation of the word is attempted, if failed it is left not translated
                 	    try {
+                	    	//Obtains ID of word for binary tree which is dictated by words first letter
                 	    	idOfWord = getID(words[i].substring(0, 1));
-                	    	System.out.print(idOfWord + " ");
-                	    	transWords[i] = englishTree.translateEng(idOfWord, words[i]);
+                	    	//If the origin language is English a Spanish translation is attempted
+                	    	if(originLang == "english") {
+                	    		transWords[i] = englishTree.translateEng(idOfWord, words[i]);
+                	    	}
+                	    	//If the origin language is Spanish a English translation is attempted
+                	    	else if(originLang == "spanish") {
+                	    		transWords[i] = spanishTree.translateEng(idOfWord, words[i]);
+                	    	}
                 		}catch(Exception e1){
                 				transWords[i] = words[i];
                 			} 
@@ -351,9 +360,7 @@ public class Menu {
                 	}
             	}
             	
-         
-            	System.out.println();
-            	System.out.println("length of line: " + transWords.length);
+            	//The array of now translated strings is recombined into a single string
             	String fullLine = "";
             	for(int i = 0; i < transWords.length; i++) {
             		if(i == 0) {
@@ -461,6 +468,14 @@ public class Menu {
         	printWriter2.close();
         }
 	}
+	
+	public void editWords(String engEdit, String espEdit) 
+	{
+		
+	}
+	
+	
+
 }
 
 //1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
