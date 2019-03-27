@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,19 +9,20 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
 
+
 /**
  * 
  * @author James Robb, Harry Finch, Harry Jamison, Daniel Denley
  *
  */
 public class Menu {
-
 	Scanner s;
 	Tree englishTree;
 	Tree spanishTree;
 	List listA, listB, listC, listD, listE, 
 	listF, listG, listH, listI, listJ, listK, listL, listM,listN,
 	listO,listP,listQ,listR,listS,listT,listU,listV,listW,listX,listY,listZ;
+
 	
 	/**
 	 * Initialises the lists and trees used, also initialises scanner which was used for user input while testing
@@ -59,6 +61,7 @@ public class Menu {
 	}
 	
 
+
 	/**
 	 * Method which translates an english string into spanish. 
 	 * @param string english string to be translated 
@@ -87,11 +90,13 @@ public class Menu {
 		return output;
 	}
 	
+
 	/**
 	 * method which translates a spanish string into an english string.
 	 * @param string spanish string which is translated into an english string
 	 * @return returns the output string which is used by the GUI
 	 */
+
 	public String translateSpanish(String string) {
 		String input;
 		int id;
@@ -104,7 +109,8 @@ public class Menu {
 			id = getID(transInput.substring(0, 1));
 			try {
 			System.out.print(spanishTree.translateSpa(id, transInput)+" ");
-			output = output + " " +spanishTree.translateSpa(id, transInput);
+      output = output + " " +spanishTree.translateSpa(id, transInput);
+
 			}catch(Exception e){
 				System.out.print(transInput+" ");
 			}
@@ -112,6 +118,7 @@ public class Menu {
 		return output;
 
 	}
+
 	
 	/**
 	 * Method which obtains an ID based on the first letter of the word
@@ -228,15 +235,17 @@ public class Menu {
 		}
 		return id;
 	}
+
 	
 	/**
 	 * method which reads in a file and translates it line by line
 	 * the method then writes the line to a separate file.
 	 * @param inputFilePath the file path of the file to be translated
+   * @param originLang the language to be translated from
 	 * @return returns the translated string.
 	 */
-	public String readFile(String inputFilePath) {
-	
+	public String readFile(String inputFilePath, String originLang) {
+
 		FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         String fileName;
@@ -246,19 +255,23 @@ public class Menu {
         int wordNumber = 0;
         String word;
         int lineNumber = -1;
+
         //Asking user to input file name
         fileName = inputFilePath;
         String translatedFile = "";
         
         try {
-        	System.out.println(fileName);
+
         	fileReader = new FileReader(fileName);
             bufferedReader = new BufferedReader(fileReader); 
             nextLine = bufferedReader.readLine();
+            
+            //While there is a next line read current line
             while (nextLine != null)
             {
             	lineNumber++;
-            	//Code to split and store into array
+            	//Code to split line and store into array of strings
+
             	String[] words = nextLine.split("\\s+");
             	
             	//Removing punctuation from words
@@ -267,21 +280,29 @@ public class Menu {
             		words[e] = words[e].replaceAll("[^a-zA-Z0-9]", "");
             		words[e] = words[e].toLowerCase();
             	}
-            	
+
+            	//Creating new array to store translated words from current line
             	String[] transWords = new String[words.length];
-            	//int i = 0; i < words.length; i++
+            	
+            	//For each word in the array translate and store into new array
             	for(int i = 0; i < words.length; i++) {
             		int idOfWord;
-            		//Set translation to word[i] after being put in translator
-            		//Firstly get id for word which stands for its first letter
-            		//Secondly give it the english word as a string
             		
+            		//If the string is a number it will be ignored if not it is translated here
                 	if(isNumeric(words[i]) == false) {
-                		 //Code must be located here which translate words[i] to spanish then places in transWords[i]:
+                		//A translation of the word is attempted, if failed it is left not translated
                 	    try {
+                	    	//Obtains ID of word for binary tree which is dictated by words first letter
                 	    	idOfWord = getID(words[i].substring(0, 1));
-                	    	System.out.print(idOfWord + " ");
-                	    	transWords[i] = englishTree.translateEng(idOfWord, words[i]);
+                	    	//If the origin language is English a Spanish translation is attempted
+                	    	if(originLang == "english") {
+                	    		transWords[i] = englishTree.translateEng(idOfWord, words[i]);
+                	    	}
+                	    	//If the origin language is Spanish a English translation is attempted
+                	    	else if(originLang == "spanish") {
+                	    		transWords[i] = spanishTree.translateEng(idOfWord, words[i]);
+                	    	}
+
                 		}catch(Exception e1){
                 				transWords[i] = words[i];
                 			} 
@@ -290,10 +311,8 @@ public class Menu {
                 		transWords[i] = words[i];
                 	}
             	}
-            	
-         
-            	System.out.println();
-            	System.out.println("length of line: " + transWords.length);
+
+            	//The array of now translated strings is recombined into a single string
             	String fullLine = "";
             	for(int i = 0; i < transWords.length; i++) {
             		if(i == 0) {
@@ -315,10 +334,12 @@ public class Menu {
             	//Writing line to file
             	writeToFile(lineNumber, fullLine);
             	System.out.println();
+
+            	translatedFile = translatedFile + fullLine;
                 nextLine = bufferedReader.readLine();
-                return translatedFile;
             }       
             bufferedReader.close();
+            return translatedFile;
             }
             catch (FileNotFoundException e)
             {
@@ -328,6 +349,7 @@ public class Menu {
            {
                 return("An error occured when opening and reading the file to be translated!");
            }
+
 		return translatedFile;	
 	    }
 	
@@ -336,8 +358,7 @@ public class Menu {
 		 * @param lineNumber line number to write too
 		 * @param text the body of text being translated
 		 */
-	
-      public void writeToFile(int lineNumber, String text) {
+	   public void writeToFile(int lineNumber, String text) {
         text = text + System.lineSeparator();
         if(lineNumber == 0) {
           try {
@@ -362,6 +383,7 @@ public class Menu {
         }		
       }
 
+
 	/**
 	 * method to see if the string is a number. found online.
 	 * @param str the text being translated
@@ -375,14 +397,13 @@ public class Menu {
 	    }
 	    return true;
 	}
-	
+
 	/**
 	 * method which translates a string from english to spanish. fills the tree and lists then runs the translate method.
 	 * @param string the string to be translated
 	 * @return returns the translated string with how fast it was translated added to the end.
 	 */
 	public String englishToSpanish(String string) {
-		
 		englishTree.insert(13, "m",listM);
 		englishTree.insert(6, "f",listF);
 		englishTree.insert(3, "c",listC);
@@ -412,6 +433,7 @@ public class Menu {
 		
 		//englishTree.showTree();
 		//adds words from file into linked lists
+
 		englishTree.openFile("dictionary/english.txt", "dictionary/spanish.txt");
 		//runs the translate option that allows users to translate a word
 
@@ -498,6 +520,39 @@ public class Menu {
 	}
 	
 
-}
+	public void addToFile(String eng, String esp) 
+	{
+		FileOutputStream outputStream1 = null;
+		FileOutputStream outputStream2 = null;
+        PrintWriter printWriter1 = null;
+        PrintWriter printWriter2 = null;
+        String fileName1 = "C:\\Users\\Harrys-Laptop\\eclipse-workspace\\Translator\\src\\english.txt";
+        String fileName2 = "C:\\Users\\Harrys-Laptop\\eclipse-workspace\\Translator\\src\\spanish.txt";
+        boolean flag = false;
+        String temp = null;
+        Scanner s1 = new Scanner(System.in);
+        try
+        {
+            outputStream1 = new FileOutputStream(fileName1, true);
+            outputStream2 = new FileOutputStream(fileName2, true);
+            printWriter1 = new PrintWriter(outputStream1);
+            printWriter2 = new PrintWriter(outputStream2);
+            printWriter1.println(eng);
+            printWriter2.println(esp);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Sorry, there has been a problem opening or writing to the file");
+            System.out.println("/t" + e);
+        }
+        finally
+        {
+        	printWriter1.close();
+        	printWriter2.close();
+        }
+	}
+	
+	
 
+}
 //1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26

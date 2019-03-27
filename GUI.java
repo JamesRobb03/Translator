@@ -1,5 +1,4 @@
 
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -25,6 +24,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.ComponentOrientation;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
 
 public class GUI {
 
@@ -81,11 +82,6 @@ public class GUI {
 		temp[0] = "English";
 		temp[1] = "Spanish";
 		JComboBox lang1addDropdown = new JComboBox(temp);
-		lang1addDropdown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.print(lang1addDropdown.getSelectedItem().toString());
-			}
-		});
 		lang1addDropdown.setBounds(112, 50, 162, 37);
 		transLatePanel.add(lang1addDropdown);
 		temp[0] = "Spanish";
@@ -117,11 +113,13 @@ public class GUI {
 		transLatePanel.add(outputTextTranslatePan);
 		
 		JTextArea inputtxtTranslatepan = new JTextArea();
+		inputtxtTranslatepan.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.BLACK, null, null, null));
+		inputtxtTranslatepan.setLineWrap(true);
 		inputtxtTranslatepan.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent arg0) {
 			}
 		});
-		inputtxtTranslatepan.setBackground(Color.LIGHT_GRAY);
+		inputtxtTranslatepan.setBackground(Color.WHITE);
 		inputtxtTranslatepan.setBounds(227, 120, 345, 107);
 		transLatePanel.add(inputtxtTranslatepan);
 		
@@ -150,12 +148,13 @@ public class GUI {
 		panel.setBackground(Color.WHITE);
 		tabbedPane.addTab("Translate a file", null, panel, null);
 		panel.setLayout(null);
-		
-		JComboBox comboBox_1 = new JComboBox(new Object[]{});
+		JLabel speedyBoi = new JLabel("");
+		speedyBoi.setBounds(47, 16, 269, 20);
+		panel.add(speedyBoi);
+		JComboBox comboBox_1 = new JComboBox(temp);
 		comboBox_1.setBounds(112, 73, 162, 37);
 		panel.add(comboBox_1);
-		
-		JComboBox comboBox_2 = new JComboBox(new Object[]{});
+		JComboBox comboBox_2 = new JComboBox(temp);
 		comboBox_2.setBounds(548, 73, 162, 37);
 		panel.add(comboBox_2);
 		
@@ -165,9 +164,10 @@ public class GUI {
 		filepathIn.setColumns(10);
 		
 		JTextArea fileTxtArea = new JTextArea();
+		fileTxtArea.setAutoscrolls(false);
 		fileTxtArea.setLineWrap(true);
 		fileTxtArea.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.BLACK, null, null, null));
-		fileTxtArea.setBounds(97, 208, 613, 190);
+		fileTxtArea.setBounds(83, 193, 649, 213);
 		panel.add(fileTxtArea);
 		
 		JLabel label_7 = new JLabel("Language 1");
@@ -177,7 +177,6 @@ public class GUI {
 		JLabel label_8 = new JLabel("Language 2");
 		label_8.setBounds(451, 73, 82, 37);
 		panel.add(label_8);
-		
 		JLabel lblPleaseEntherThe = new JLabel("Please enter the file path");
 		lblPleaseEntherThe.setBounds(25, 131, 194, 37);
 		panel.add(lblPleaseEntherThe);
@@ -185,22 +184,55 @@ public class GUI {
 		JButton filePAthbtn = new JButton("Translate");
 		filePAthbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fileTxtArea.setText(gibberish.readFile(filepathIn.getText()));
+				gibberish.init();
+				gibberish.englishToSpanish("hello");
+				gibberish.spanishToEnglish("hola");
+				if((comboBox_1.getSelectedItem().toString().equals("English")&&
+						(comboBox_2.getSelectedItem().toString().equals("Spanish")))) 
+				{
+				//gibberish.runTest(inputtxtTranslatepan.getText());
+					
+					double startTime = System.nanoTime();
+					String tempVal = gibberish.readFile(filepathIn.getText(),"english");
+					double amountOfWords = gibberish.howManyWords(tempVal);
+					fileTxtArea.setText(tempVal);
+					double endTime = System.nanoTime();
+					double duration = (endTime - startTime)/1000000;
+					duration = duration/1000;
+					System.out.println(amountOfWords + " " +duration);
+					double wps = amountOfWords / duration;
+					String roundWps = String.format("%.2f", wps);
+					speedyBoi.setText("Words per second:"+roundWps);
+					//fileTxtArea.setText(gibberish.readFile(filepathIn.getText(),"english"));
+				}
+				else if((comboBox_1.getSelectedItem().equals("Spanish")&&(comboBox_2.getSelectedItem().equals("English"))))
+				{
+				fileTxtArea.setText(gibberish.readFile(filepathIn.getText(),"spanish"));
 			}
-		});
+			}
+		});	
 		filePAthbtn.setBounds(603, 139, 115, 29);
 		panel.add(filePAthbtn);
+		
+		JScrollPane scrollPane = new JScrollPane(fileTxtArea);
+		scrollPane.setBounds(83, 193, 649, 213);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		panel.add(scrollPane);
+		
+		
 		
 		JPanel addPanel = new JPanel();
 		addPanel.setBackground(Color.WHITE);
 		tabbedPane.addTab("Add", null, addPanel, null);
 		addPanel.setLayout(null);
-		
-		JComboBox AddComboBox1 = new JComboBox();
+		temp[0] = "English";
+		temp[1] = "Spanish";
+		JComboBox AddComboBox1 = new JComboBox(temp);
 		AddComboBox1.setBounds(109, 62, 162, 37);
 		addPanel.add(AddComboBox1);
-		
-		JComboBox addComboBox2 = new JComboBox();
+		temp[0] = "Spanish";
+		temp[1] = "English";
+		JComboBox addComboBox2 = new JComboBox(temp);
 		addComboBox2.setBounds(571, 62, 162, 37);
 		addPanel.add(addComboBox2);
 		
@@ -223,6 +255,13 @@ public class GUI {
 		addPanel.add(label_1);
 		
 		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				gibberish.addToFile(language1AddInput.getText(), language2AddInput.getText());
+			}
+		});
 		btnAdd.setBounds(335, 388, 115, 29);
 		addPanel.add(btnAdd);
 		
@@ -313,5 +352,10 @@ public class GUI {
 		JLabel lblPleaseSelectThe = new JLabel("<html>Please Select the word/phrase <br> you would like to delete");
 		lblPleaseSelectThe.setBounds(58, 180, 216, 83);
 		deletePanel.add(lblPleaseSelectThe);
-	}
+		temp[0] = "English";
+		temp[1] = "Spanish";
+		temp[1] = "English";
+		temp[0] = "Spanish";
+			}	
 }
+		
